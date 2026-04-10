@@ -5,8 +5,8 @@ import { CONFIG } from "../config/config";
 	name: "ping",
 	description: "Mira la latencia del bot",
 	props: {
-		requiredRoles: [CONFIG.ROLES.ADMIN]
-	}
+		requiredRoles: [CONFIG.ROLES.ADMIN],
+	},
 })
 export default class PingCommand extends Command {
 	override async run(ctx: CommandContext) {

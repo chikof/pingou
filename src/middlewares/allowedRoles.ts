@@ -1,6 +1,6 @@
 import { createMiddleware } from "seyfert";
-import { CONFIG } from "../config/config";
 import { MessageFlags } from "seyfert/lib/types";
+import { CONFIG } from "../config/config";
 import { Embeds } from "../utils/embeds";
 
 export const AuthMiddleware = createMiddleware<void>(async (middle) => {

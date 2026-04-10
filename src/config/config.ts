@@ -4,6 +4,5 @@ export const CONFIG = {
 		ADMIN: "",
 		// General Roles
 		EVERYONE: "",
-		
 	},
 };

@@ -7,12 +7,13 @@ async function boostrap() {
 
 	client.setServices({
 		middlewares: middlewares,
-	}),
-		client.start().then(() =>
-			client.uploadCommands({
-				cachePath: "./commands.json",
-			}),
-		);
+	});
+
+	client.start().then(() =>
+		client.uploadCommands({
+			cachePath: "./commands.json",
+		}),
+	);
 }
 
 boostrap().catch((error) => {

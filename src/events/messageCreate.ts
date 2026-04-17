@@ -1,7 +1,7 @@
 import { createEvent } from "seyfert";
 import { aiService } from "../services/ai";
-import { Embeds } from "../utils/embeds";
 import { CooldownService } from "../services/Cooldown";
+import { Embeds } from "../utils/embeds";
 
 export default createEvent({
 	data: { once: false, name: "messageCreate" },
@@ -35,7 +35,7 @@ export default createEvent({
 			const content = message.content ?? "";
 			const match = /contexto:\s*(\d+)/i.exec(content);
 			if (match?.[1]) {
-				contextLimit = Math.min(Number.parseInt(match[1]), 10);
+				contextLimit = Math.min(Number.parseInt(match[1], 10), 10);
 			}
 
 			const prevMessages = await aiService.getLatestMessages(

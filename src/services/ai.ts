@@ -1,11 +1,12 @@
-import type { UsingClient } from "seyfert";
 import {
+	type GenerateContentResponseUsageMetadata,
 	GoogleGenAI,
 	HarmBlockThreshold,
 	HarmCategory,
 	Modality,
 	type SafetySetting,
 } from "@google/genai";
+import type { UsingClient } from "seyfert";
 
 export const SAFETY_SETTINGS: SafetySetting[] = [
 	{
@@ -69,7 +70,7 @@ export type Features = {
 };
 
 export class AIService {
-	private readonly memory = new Map<string, any[]>();
+	private readonly memory = new Map<string, string[]>();
 	private readonly ai: GoogleGenAI;
 	private readonly model: string = "gemma-3-27b-it";
 
@@ -150,7 +151,7 @@ export class AIService {
 		}
 	}
 
-	saveToMemory(id: string, messages: any[]) {
+	saveToMemory(id: string, messages: string[]) {
 		this.memory.set(id, messages);
 	}
 
@@ -158,7 +159,9 @@ export class AIService {
 		return this.memory.get(id);
 	}
 
-	async chat(messages: string[]): Promise<{ text: string; usage?: any }> {
+	async chat(
+		messages: string[],
+	): Promise<{ text: string; usage?: GenerateContentResponseUsageMetadata }> {
 		if (!this.model) {
 			throw new Error("Missing AI_API_KEY env variable");
 		}

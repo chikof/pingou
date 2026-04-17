@@ -1,6 +1,6 @@
+import { eq, lt } from "drizzle-orm";
 import { db } from "../database";
 import { cooldowns } from "../database/schemas/cooldowns";
-import { eq, lt } from "drizzle-orm";
 
 export class CooldownService {
 	static async setCooldown(userId: string, key: string, seconds: number) {

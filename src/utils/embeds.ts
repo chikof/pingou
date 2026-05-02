@@ -1,6 +1,7 @@
 import type { GenerateContentResponseUsageMetadata } from "@google/genai";
 import { type CommandContext, Embed } from "seyfert";
 import { CONFIG } from "../config/config";
+import type { CreateRepLogI } from "../services/reputationService";
 import { formatDurationForModEmbed } from "./duration";
 
 export const Embeds = {
@@ -567,14 +568,7 @@ export const Embeds = {
 			.setTimestamp();
 	},
 
-	repLogEmbed(data: {
-		receiverId: string;
-		receiverName: string;
-		giverId: string;
-		giverName: string;
-		points: number;
-		newRoles: string[];
-	}): Embed {
+	repLogEmbed(data: CreateRepLogI): Embed {
 		const roleText =
 			data.newRoles.length > 0
 				? `\nNuevo rol: ${data.newRoles.map((r) => `<@&${r}>`).join(", ")}`

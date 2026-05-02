@@ -1,6 +1,16 @@
 import type { UsingClient } from "seyfert";
 import { CONFIG } from "../config/config";
 import { reputationRepository } from "../repositories/reputationRepository";
+import { Embeds } from "../utils/embeds";
+
+export interface CreateRepLogI {
+	receiverId: string;
+	receiverName: string;
+	giverId: string;
+	giverName: string;
+	points: number;
+	newRoles: string[];
+}
 
 export class ReputationService {
 	async addRepAndCheckRoles(
@@ -41,6 +51,22 @@ export class ReputationService {
 		}
 
 		return { points, prevPoints, newRoles };
+	}
+
+	async sendLogRep(client: UsingClient, data: CreateRepLogI) {
+		const channelId = CONFIG.CHANNELS.REP_LOG;
+		if (!channelId) {
+			console.info(
+				`[Rep] ${data.giverName} (${data.giverId}) le dio rep a ${data.receiverName} (${data.receiverId})`,
+			);
+			return;
+		}
+
+		const embed = Embeds.repLogEmbed(data);
+
+		await client.messages.write(channelId, {
+			embeds: [embed],
+		});
 	}
 }
 
